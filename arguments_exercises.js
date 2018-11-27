@@ -45,7 +45,23 @@ Function.prototype.curry = function (numArgs) {
     args.push(arg);
     
     if (args.length === numArgs) {
-      return Function.prototype.apply(that, args);
+      return that.apply(this, args);
+    } else {
+      return _curry;
+    }
+  };
+  
+  return _curry;
+};
+
+Function.prototype.newCurry = function (numArgs) {
+  let that = this;
+  let args = [];
+  let _curry = (arg) => {
+    args.push(arg);
+    
+    if (args.length === numArgs) {
+      return that(...args);
     } else {
       return _curry;
     }
